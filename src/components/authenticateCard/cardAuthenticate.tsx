@@ -21,6 +21,7 @@ function Authenticate(): React.JSX.Element {
     });
     const [loadingAuth, setLoadingAuth] = useState(false);
     const [loadingCheck, setLoadingCheck] = useState(false);
+
     
     const handleButtonClickAuth = async() => {
         setLoadingAuth(true);
