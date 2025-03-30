@@ -126,7 +126,7 @@ function Authenticate(): React.JSX.Element {
                     </Alert>
                     <Box sx={{position: 'relative' }}>
                         <ThemeProvider theme={buttontheme} >
-                            <Button variant="contained" onClick={handleButtonClickAuth} disabled={loadingAuth}>
+                            <Button variant="contained" onClick={handleButtonClickAuth} disabled={loadingCheck || loadingAuth}>
                                 <ThemeProvider theme={themes}>
                                     <Typography variant='h2'>Authenticate</Typography>
                                 </ThemeProvider>
@@ -147,7 +147,7 @@ function Authenticate(): React.JSX.Element {
                     </Box>
                     <Box sx={{position: 'relative' }}>
                         <ThemeProvider theme={buttontheme} >
-                            <Button variant="contained" onClick={handleButtonClickCheckValue} disabled={loadingCheck}>
+                            <Button variant="contained" onClick={handleButtonClickCheckValue} disabled={loadingCheck || loadingAuth}>
                                 <ThemeProvider theme={themes}>
                                     <Typography variant='h2'>Check Value</Typography>
                                 </ThemeProvider>
