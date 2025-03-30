@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
-import { Alert, Box, Button, Grid2, Stack, Typography } from '@mui/material';
+import { Alert, Box, Button, CircularProgress, Grid2, Stack, Typography } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 
 import OutputField from './outputField';
@@ -18,9 +18,12 @@ function Authenticate(): React.JSX.Element {
     const [alert, setAlert] = useState({
         severity: "success",
         message: "Authenticated",
-      });
+    });
+    const [loadingAuth, setLoadingAuth] = useState(false);
+    const [loadingCheck, setLoadingCheck] = useState(false);
     
-    const handleButtonClick = async() => {
+    const handleButtonClickAuth = async() => {
+        setLoadingAuth(true);
         try {
             // Construct the URL with query parameters
             const url = `http://127.0.0.1:8080/authenticate`;
@@ -33,13 +36,13 @@ function Authenticate(): React.JSX.Element {
             if (response.ok) {
                 const data = await response.json();
                 setStatus("success");
-                if (status == "success") {
+                if (status === "success") {
                     setName(data.message.name);
                     setRole(data.message.role);
                     setID(data.message.id);
                     setChecksum(data.is_valid_checksum);
                     
-                    if (checksum == "true") {
+                    if (checksum === "true") {
                         setAlert({
                             severity: "success",
                             message: "Authenticated!",
@@ -58,11 +61,48 @@ function Authenticate(): React.JSX.Element {
                 }
 
                 console.log("Response data:", data);
-                } else {
+            } else {
                 console.error("Failed to fetch data from Flask API");
-                }
+            }
         } catch (error) {
             console.error("Error:", error);
+        } finally {
+            setLoadingAuth(false);
+        }
+    }
+
+    const handleButtonClickCheckValue = async() => {
+        setLoadingCheck(true);
+        try {
+            // Construct the URL with query parameters
+            const url = `http://127.0.0.1:8080/display_value`;
+      
+            // Send GET request to Flask backend
+            const response = await fetch(url, {
+              method: "GET",
+            });
+      
+            if (response.ok) {
+                const data = await response.json();
+                setStatus("success");
+                if (status === "success") {
+                    setName(data.message.name);
+                    setRole(data.message.role);
+                    setID(data.message.id);
+                } else {
+                    setAlert({
+                        severity: "error",
+                        message: data.message || "Error!",
+                    });
+                }
+                console.log("Response data:", data);
+            } else {
+                console.error("Failed to fetch data from Flask API");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        } finally {
+            setLoadingCheck(false); 
         }
     }
 
@@ -71,7 +111,7 @@ function Authenticate(): React.JSX.Element {
             <Grid2 size={6} sx={{ padding: 2 }} display="flex"  alignItems="center" justifyContent="center">
                 <Stack sx={{
                     display: 'flex',
-                    gap: '25px',
+                    gap: '27px',
                     alignItems: 'center'
                 }}> 
                     <ThemeProvider theme={themes} >
@@ -83,13 +123,48 @@ function Authenticate(): React.JSX.Element {
                     <Alert severity={alert.severity as "success" | "error"} >
                         {alert.message}
                     </Alert>
-                    <ThemeProvider theme={buttontheme} >
-                        <Button variant="contained" onClick={handleButtonClick}>
-                            <ThemeProvider theme={themes}>
-                                <Typography variant='h2'>Authenticate</Typography>
-                            </ThemeProvider>
-                        </Button>
-                    </ThemeProvider>
+                    <Box sx={{position: 'relative' }}>
+                        <ThemeProvider theme={buttontheme} >
+                            <Button variant="contained" onClick={handleButtonClickAuth} disabled={loadingAuth}>
+                                <ThemeProvider theme={themes}>
+                                    <Typography variant='h2'>Authenticate</Typography>
+                                </ThemeProvider>
+                            </Button>
+                            {loadingAuth && (
+                            <CircularProgress
+                                size={24}
+                                sx={{
+                                    position: 'absolute',
+                                    top: '50%',
+                                    left: '50%',
+                                    marginTop: '-12px',
+                                    marginLeft: '-12px',
+                                }}
+                            />
+                        )}
+                        </ThemeProvider>
+                    </Box>
+                    <Box sx={{position: 'relative' }}>
+                        <ThemeProvider theme={buttontheme} >
+                            <Button variant="contained" onClick={handleButtonClickCheckValue} disabled={loadingCheck}>
+                                <ThemeProvider theme={themes}>
+                                    <Typography variant='h2'>Check Value</Typography>
+                                </ThemeProvider>
+                            </Button>
+                            {loadingCheck && (
+                                <CircularProgress
+                                    size={24}
+                                    sx={{
+                                        position: 'absolute',
+                                        top: '50%',
+                                        left: '50%',
+                                        marginTop: '-12px',
+                                        marginLeft: '-12px',
+                                    }}
+                                />
+                            )}
+                        </ThemeProvider>
+                    </Box>
                 </Stack>
             </Grid2>
                 <Grid2 size={6} sx={{ padding: 0, height: '100vh' }}>

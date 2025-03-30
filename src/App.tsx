@@ -32,12 +32,12 @@ const AppContent: React.FC = () => {
         <Tab label="Instructions" component={Link} to="/instructions" />
       </Tabs>
       <Routes>
+        <Route path="/" element={<Navigate to="/authenticate" />} />
         <Route path="/authenticate" element={<Authenticate/>} />
         <Route path="/readwrite" element={<WebUI/>} />
         <Route path="/members" element={<MembersPortal/>} />
         <Route path="/gif" element={<GifPage/>} />
         <Route path="/instructions" element={<Instructions/>} />
-        <Route path="/" element={<Navigate to="/verifycard" />} />
       </Routes>
     </div>
   );

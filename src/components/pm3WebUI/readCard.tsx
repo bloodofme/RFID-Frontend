@@ -1,12 +1,9 @@
 import React, {useState} from 'react';
 
-import { Grid2, Stack, Box, Button } from '@mui/material';
-import { TextField, Typography } from '@mui/material';
-
+import { Grid2, Stack, Button, TextField, Typography } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 
 import buttontheme from '../../themes/buttontheme'
-import myImage from '../../resources/building.jpeg';
 import themes from '../../themes/themes'
 
 function Authenticate(): React.JSX.Element {

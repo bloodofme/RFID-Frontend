@@ -1,15 +1,12 @@
 
 import React, { useState } from 'react';
 
+import { Box, Typography } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
-import { Grid2, Box, Button, Stack, TextField, Typography } from '@mui/material';
 
 import theme from '../../themes/themes'
 import dataDummy from '../../resources/dummyCard.json';
-import buttontheme from '../../themes/buttontheme'
-import themes from '../../themes/themes'
 
-import ButtonSubmit from './buttonSubmit';
 import DisplayCardData from './displayCardData';
 
 
