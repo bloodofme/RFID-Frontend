@@ -1,0 +1,35 @@
+{
+	"data": [
+	  {
+		"name": "Edward Cullen",
+		"role": "staff",
+		"email": "129463214@test.edu.sg",
+		"description": "Current vampire from Forks USA. The key to defeating him is <insert key here>."
+	  },
+	  {
+		"name": "Geralt Rivia",
+		"role": "staff",
+		"email": "127785537@test.edu.sg",
+		"description": "Resolute man with striking white hair, who is bound by his own code of honor: <insert key here>."
+	  },
+	  {
+		"name": "John Lee",
+		"role": "professor",
+		"email": "132378594@test.edu.sg",
+		"description": "His favourite drink is osmanthus wine, and he loves to share with his friends. He even gave it a nickname of <insert key here>."
+	  },
+	  {
+		"name": "Sam Oak",
+		"role": "professor",
+		"email": "131720972@test.edu.sg",
+		"description": "Used to work in Pallet town and has his own lab. Gives junior trainer the choice between Bulbasaur, Charmander, or <insert key here>."
+	  },
+	  {
+		"name": "J. Robert Oppenheimer",
+		"role": "professor",
+		"email": "132362871@test.edu.sg",
+		"description": "'Now I am become Death, the destroyer of worlds.' He has hidden the nuclear launch code using <insert key here>."
+	  }
+	]
+  }
+  
