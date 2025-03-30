@@ -17,7 +17,7 @@ function Authenticate(): React.JSX.Element {
     const [checksum, setChecksum] = useState<string>("true");
     const [alert, setAlert] = useState({
         severity: "success",
-        message: "Authenticated",
+        message: "fefE",
       });
     
     const handleButtonClick = async() => {
