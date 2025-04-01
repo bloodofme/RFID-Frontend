@@ -7,7 +7,7 @@ const buttontheme = createTheme({
         root: {
           textTransform: 'none',
         },
-        contained: {
+        containedPrimary: {
           maxWidth: '400px',
           maxHeight: '50px',
           minWidth: '200px',
@@ -16,6 +16,22 @@ const buttontheme = createTheme({
           '&:hover': {
             backgroundColor: '#a0d2eb',
           },
+        },
+        containedSecondary: {
+          maxWidth: '400px',
+          maxHeight: '50px',
+          minWidth: '200px',
+          minHeight: '40px',
+          backgroundColor: '#8458b3',
+          '&:hover': {
+            backgroundColor: '#8458b3',
+          },
+        },
+        outlinedPrimary: {
+          maxWidth: '400px',
+          maxHeight: '50px',
+          minWidth: '200px',
+          minHeight: '40px',
         },
       },
     },

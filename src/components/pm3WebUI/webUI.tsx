@@ -1,13 +1,13 @@
 
 import React, { useState } from 'react';
 
-import { Box, Typography } from '@mui/material';
+import { Box, Card, CardContent, Typography } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 
 import theme from '../../themes/themes'
 import dataDummy from '../../resources/dummyCard.json';
 
-import DisplayCardData from './displayCardData';
+import ReadCard from './readCard';
 
 
 function WebUI(): React.JSX.Element {
@@ -34,14 +34,15 @@ function WebUI(): React.JSX.Element {
             console.error("Error:", error);
           }
     }
-
+    //<DisplayCardData blocks={dataDummy.blocks} />
     return (
         <Box alignItems="center" justifyContent="center">
-            <Box padding={6} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                <ThemeProvider theme={theme} >
-                    <Typography variant='h1'>Card</Typography>
-                </ThemeProvider>
-                <DisplayCardData blocks={dataDummy.blocks} />
+            <Box padding={12} sx={{ display: 'flex', gap: 2, alignItems: 'center', justifyContent:"center", }}>
+                <Card variant="outlined" sx={{ minWidth: 700, maxWidth: 1200, justifyContent:"center", alignItems: 'center' }}>
+                  <CardContent>
+                    <ReadCard />
+                  </CardContent>
+                </Card>
             </Box>
         </Box>
     );

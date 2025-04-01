@@ -67,6 +67,10 @@ function Authenticate(): React.JSX.Element {
             }
         } catch (error) {
             console.error("Error:", error);
+            setAlert({
+                severity: "error",
+                message: "Error receiving card values!",
+            });
         } finally {
             setLoadingAuth(false);
         }
@@ -102,6 +106,10 @@ function Authenticate(): React.JSX.Element {
             }
         } catch (error) {
             console.error("Error:", error);
+            setAlert({
+                severity: "error",
+                message: "Error receiving card values!",
+            });
         } finally {
             setLoadingCheck(false); 
         }
@@ -121,38 +129,21 @@ function Authenticate(): React.JSX.Element {
                     <OutputField title="Name" defaultValue="John Cena" value={name}/>
                     <OutputField title="Role" defaultValue="Student" value={role}/>
                     <OutputField title="ID" defaultValue="132567253426" value={id}/>
-                    <Alert severity={alert.severity as "success" | "error"} >
-                        {alert.message}
-                    </Alert>
-                    <Box sx={{position: 'relative' }}>
-                        <ThemeProvider theme={buttontheme} >
-                            <Button variant="contained" onClick={handleButtonClickAuth} disabled={loadingCheck || loadingAuth}>
-                                <ThemeProvider theme={themes}>
-                                    <Typography variant='h2'>Authenticate</Typography>
-                                </ThemeProvider>
-                            </Button>
-                            {loadingAuth && (
-                            <CircularProgress
-                                size={24}
-                                sx={{
-                                    position: 'absolute',
-                                    top: '50%',
-                                    left: '50%',
-                                    marginTop: '-12px',
-                                    marginLeft: '-12px',
-                                }}
-                            />
-                        )}
-                        </ThemeProvider>
-                    </Box>
-                    <Box sx={{position: 'relative' }}>
-                        <ThemeProvider theme={buttontheme} >
-                            <Button variant="contained" onClick={handleButtonClickCheckValue} disabled={loadingCheck || loadingAuth}>
-                                <ThemeProvider theme={themes}>
-                                    <Typography variant='h2'>Check Value</Typography>
-                                </ThemeProvider>
-                            </Button>
-                            {loadingCheck && (
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            gap: 2,
+                        }}
+                    >
+                        <Box sx={{position: 'relative' }}>
+                            <ThemeProvider theme={buttontheme} >
+                                <Button variant="contained" color="primary" onClick={handleButtonClickAuth} disabled={loadingCheck || loadingAuth}>
+                                    <ThemeProvider theme={themes}>
+                                        <Typography variant='h2'>Authenticate</Typography>
+                                    </ThemeProvider>
+                                </Button>
+                                {loadingAuth && (
                                 <CircularProgress
                                     size={24}
                                     sx={{
@@ -164,8 +155,33 @@ function Authenticate(): React.JSX.Element {
                                     }}
                                 />
                             )}
-                        </ThemeProvider>
+                            </ThemeProvider>
+                        </Box>
+                        <Box sx={{position: 'relative' }}>
+                            <ThemeProvider theme={buttontheme} >
+                                <Button variant="outlined" color="primary" onClick={handleButtonClickCheckValue} disabled={loadingCheck || loadingAuth}>
+                                    <ThemeProvider theme={themes}>
+                                        <Typography variant='h6'>Check Value</Typography>
+                                    </ThemeProvider>
+                                </Button>
+                                {loadingCheck && (
+                                    <CircularProgress
+                                        size={24}
+                                        sx={{
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            marginTop: '-12px',
+                                            marginLeft: '-12px',
+                                        }}
+                                    />
+                                )}
+                            </ThemeProvider>
+                        </Box>
                     </Box>
+                    <Alert severity={alert.severity as "success" | "error"} variant="filled">
+                        {alert.message}
+                    </Alert>
                 </Stack>
             </Grid2>
                 <Grid2 size={6} sx={{ padding: 0, height: '100vh' }}>

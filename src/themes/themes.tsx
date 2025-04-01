@@ -15,7 +15,7 @@ const theme = createTheme({
       alignItems: 'center',
       justifyContent: 'center',
       display: 'flex',
-      fontSize: '1.4rem',
+      fontSize: '1.3rem',
       fontFamily: 'Roboto',
       color: '#FFFFFF',
     },
@@ -32,10 +32,18 @@ const theme = createTheme({
       color: '#494D5F',
     },
     h5: {
-      display: 'flex', // Ensure proper layout
-      fontSize: '1.3rem', // Font size for h5
-      fontFamily: 'Fira Code', // Apply Fira Code specifically for h5
-      color: '#494D5F', // Text color
+      display: 'flex',
+      fontSize: '1.3rem',
+      fontFamily: 'Fira Code',
+      color: '#494D5F', 
+    },
+    h6: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      display: 'flex',
+      fontSize: '1.2rem',
+      fontFamily: 'Roboto',
+      color: '#494D5F',
     },
   },
 });
