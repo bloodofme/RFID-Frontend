@@ -1,35 +1,84 @@
 import React, {useState} from 'react';
 
-import { Grid2, Stack, Button, TextField, Typography } from '@mui/material';
+import { Button, FormControl, Grid2, InputLabel, MenuItem, OutlinedInput, Select, SelectChangeEvent, Stack, TextField, Typography } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 
 import buttontheme from '../../themes/buttontheme'
 import themes from '../../themes/themes'
 
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+const sectors = [
+    '0', '1', '2', '3', 
+    '4', '5', '6', '7', 
+    '8','9', '10', '11',
+    '12', '13', '14', '15',
+];
+
 function WriteCard(): React.JSX.Element {
-    const [data, setData] = useState<string[]>([]);
-    const [blkNo, setBlkNo] = useState<string>("");
+    const [blk, setBlk] = useState<string>("");
     const [key, setKey] = useState<string>("");
     const [hexData, setHexData] = useState<string>("");
+    const [isinvalidHexData, setIsInvalidHexData] = useState(true);
+    const [helperTextHexData, setHelperTextHexData] = useState("");
 
-    const handleInputChangeBlkNo = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setBlkNo(event.target.value);
+    const handleInputChangeBlkNo = (event: SelectChangeEvent<typeof blk>) => {
+        setBlk(event.target.value);
+    };
+
+    const formatHexDataInput = (input: string) => {
+        const cleaned = input.replace(/[^0-9A-Za-z]/g, "");
+        const formatted = cleaned.match(/.{1,2}/g)?.join(" ") || "";
+        return formatted;
+      };
+
+    const validateHex = (input: string) => {
+        const hexRegex = /^[0-9A-Fa-f]{16}$/;
+        const cleaned = input.replace(/\s/g, "");
+        return hexRegex.test(cleaned);
     };
 
     const handleInputChangeHexData = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setHexData(event.target.value);
+        const inputValue = event.target.value;
+        const formatted = formatHexDataInput(inputValue);
+        setHexData(formatted);
+
+        if (inputValue.replace(/\s/g, "").length === 16) {
+            if (validateHex(inputValue)) {
+                setIsInvalidHexData(false);
+                setHelperTextHexData("");
+            } else {
+                setIsInvalidHexData(true);
+                setHelperTextHexData("Invalid hex characters");
+            }
+          } else {
+            setIsInvalidHexData(true);
+            setHelperTextHexData(inputValue.length < 16 ? "Must be 16 characters" : "Maximum 16 characters");
+          }
     };
 
     const handleInputChangeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setKey(event.target.value);
+        const inputValue = event.target.value;
+        setKey(inputValue);
+
+
     };
     
     const handleButtonClick = async() => {
         try {
-            // Construct the URL with query parameters
-            const url = `http://127.0.0.1:5000/verify_card?input=${blkNo}&param1=${hexData}`;
+            const withoutSpaces = hexData.replace(/\s/g, "");
+
+            const url = `http://127.0.0.1:5000/verify_card?input=${blk}&hexData=${withoutSpaces}&key=${key}`;
       
-            // Send GET request to Flask backend
             const response = await fetch(url, {
               method: "GET",
             });
@@ -49,36 +98,56 @@ function WriteCard(): React.JSX.Element {
         <Grid2 container spacing={0} sx={{ overflow: 'hidden', justifyContent: 'center' }}>
             <Stack sx={{
                     display: 'flex',
-                    gap: '25px'
+                    gap: '25px',
+                    alignItems: 'center', 
+                    justifyContent: 'center' 
                 }}> 
                     <ThemeProvider theme={themes} >
-                        <Typography variant='h1'>Verify your card</Typography>
+                        <Typography variant='h1'>Write Card</Typography>
                     </ThemeProvider>
-                    <TextField
-                        label="Blk No"
-                        variant="outlined"
-                        value={blkNo}
-                        onChange={handleInputChangeBlkNo}
-                        
-                    />
+                    <Grid2 container spacing={2}>
+                        <Grid2>
+                        <FormControl sx={{ width: 150 }}>
+                        <InputLabel>Sector</InputLabel>
+                        <Select
+                            value={blk}
+                            onChange={handleInputChangeBlkNo}
+                            input={<OutlinedInput label="Name" />}
+                            MenuProps={MenuProps}
+                        >
+                            {sectors.map((sector) => (
+                                <MenuItem
+                                key={sector}
+                                value={sector}
+                                >
+                                {sector}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                        </Grid2>
+                        <Grid2>
+                        <TextField
+                            label="Key"
+                            variant="outlined"
+                            value={key}
+                            onChange={handleInputChangeKey}
+                        />
+                        </Grid2>
+                    </Grid2>
                     <TextField
                         label="Block Data"
                         variant="outlined"
                         value={hexData}
+                        error={isinvalidHexData}
                         onChange={handleInputChangeHexData}
                         fullWidth
-                    />
-                    <TextField
-                        label="Key"
-                        variant="outlined"
-                        value={key}
-                        onChange={handleInputChangeKey}
-                        
+                        helperText={helperTextHexData}
                     />
                     <ThemeProvider theme={buttontheme} >
-                        <Button variant="contained" onClick={handleButtonClick}>
+                        <Button variant="contained" disabled={isinvalidHexData || hexData.replace(/\s/g, "").length !== 16} onClick={handleButtonClick}>
                             <ThemeProvider theme={themes}>
-                                <Typography variant='h2'>Read Card</Typography>
+                                <Typography variant='h2'>Write Card</Typography>
                             </ThemeProvider>
                         </Button>
                     </ThemeProvider>

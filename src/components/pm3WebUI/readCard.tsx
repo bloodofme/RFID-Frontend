@@ -26,7 +26,7 @@ const sectors = [
     '4', '5', '6', '7', 
     '8','9', '10', '11',
     '12', '13', '14', '15',
-  ];
+];
   
 
 function ReadCard(): React.JSX.Element {
@@ -53,12 +53,30 @@ function ReadCard(): React.JSX.Element {
       
             if (response.ok) {
               const data = await response.json();
-              console.log("Response data:", data);
+              setStatus(data.status);
+              if (status === "success") {
+                setAlert({
+                  severity: "success",
+                  message: "Read Success!",
+                });
+              } else {
+                setAlert({
+                  severity: "error",
+                  message: data.message || "Error!",
+                });
+              }
             } else {
-              console.error("Failed to fetch data from Flask API");
+              setAlert({
+                severity: "error",
+                message: "Failed to fetch data from Flask API"
+              });
             }
           } catch (error) {
             console.error("Error:", error);
+            setAlert({
+              severity: "error",
+              message: "Error!"
+            });
           }
     }
 
@@ -85,7 +103,7 @@ function ReadCard(): React.JSX.Element {
                     width: '100%',
                 }}
                 >
-                    <FormControl sx={{ m: 1, width: 100 }}>
+                    <FormControl sx={{ m: 1, width: 150 }}>
                         <InputLabel>Sector</InputLabel>
                         <Select
                             value={blk}
@@ -113,7 +131,9 @@ function ReadCard(): React.JSX.Element {
                 </Box>
                 <DisplayCardData blocks={dataDummy.blocks} />
             </Stack>
-            
+            <Alert severity={alert.severity as "success" | "error"} variant="filled">
+              {alert.message}
+            </Alert>
         </Grid2>
     );
 }

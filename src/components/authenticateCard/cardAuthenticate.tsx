@@ -64,6 +64,10 @@ function Authenticate(): React.JSX.Element {
                 console.log("Response data:", data);
             } else {
                 console.error("Failed to fetch data from Flask API");
+                setAlert({
+                    severity: "error",
+                    message:"Failed to fetch data from Flask API",
+                });
             }
         } catch (error) {
             console.error("Error:", error);
@@ -103,6 +107,10 @@ function Authenticate(): React.JSX.Element {
                 console.log("Response data:", data);
             } else {
                 console.error("Failed to fetch data from Flask API");
+                setAlert({
+                    severity: "error",
+                    message: "Error receiving card values!",
+                });
             }
         } catch (error) {
             console.error("Error:", error);

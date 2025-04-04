@@ -1,13 +1,10 @@
 
 import React, { useState } from 'react';
 
-import { Box, Card, CardContent, Typography } from '@mui/material';
-import { ThemeProvider } from '@mui/material/styles';
-
-import theme from '../../themes/themes'
-import dataDummy from '../../resources/dummyCard.json';
+import { Box, Card, CardContent } from '@mui/material';
 
 import ReadCard from './readCard';
+import WriteCard from './writeCard';
 
 
 function WebUI(): React.JSX.Element {
@@ -34,13 +31,21 @@ function WebUI(): React.JSX.Element {
             console.error("Error:", error);
           }
     }
+    
     //<DisplayCardData blocks={dataDummy.blocks} />
     return (
         <Box alignItems="center" justifyContent="center">
-            <Box padding={12} sx={{ display: 'flex', gap: 2, alignItems: 'center', justifyContent:"center", }}>
-                <Card variant="outlined" sx={{ minWidth: 700, maxWidth: 1200, justifyContent:"center", alignItems: 'center' }}>
+            <Box padding={20} sx={{ display: 'flex', alignItems: 'center', justifyContent:"center", }}>
+                <Card variant="outlined" sx={{ minWidth: 1200, maxWidth: 1200, justifyContent:"center", alignItems: 'center' }}>
                   <CardContent>
                     <ReadCard />
+                  </CardContent>
+                </Card>
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent:"center", }}>
+                <Card variant="outlined" sx={{ minWidth: 1200, maxWidth: 1200, justifyContent:"center", alignItems: 'center' }}>
+                  <CardContent>
+                    <WriteCard />
                   </CardContent>
                 </Card>
             </Box>
