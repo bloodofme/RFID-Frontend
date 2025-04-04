@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ThemeProvider } from '@mui/material/styles';
-import { Box, Typography, Stack, Button, Paper, Link } from '@mui/material';
+import { Box, Link, Paper, Typography, Stack } from '@mui/material';
 
 import theme from '../../themes/themes'
 
@@ -58,7 +58,7 @@ function Instructions(): React.JSX.Element {
                 <li>
                   <Typography sx={{ fontSize: '1.2rem', fontFamily: 'Roboto', color: '#494D5F', }}>
                     Navigate to:
-                    <Link href="<insert URL>" target="_blank"> Scan Tag Data</Link> - Specify block numbers for reading
+                    <Link href="http://localhost:3000/readwrite" target="_blank"> Scan Tag Data</Link> - Specify block numbers for reading
                   </Typography>
                 </li>
                 <li>
@@ -68,12 +68,12 @@ function Instructions(): React.JSX.Element {
                 </li>
                 <li>
                   <Typography sx={{ fontSize: '1.2rem', fontFamily: 'Roboto', color: '#494D5F', }}>
-                    <Link href="http://localhost:3000/readwrite" target="_blank">Verify Changes</Link> - Confirm your modifications
+                    <Link href="http://localhost:3000/authenticate" target="_blank">Verify Changes</Link> - Confirm your modifications
                   </Typography>
                 </li>
                 <li>
                   <Typography sx={{ fontSize: '1.2rem', fontFamily: 'Roboto', color: '#494D5F', }}>
-                    Get <Link href="<insert URL>" target="_blank"> exercise hints</Link> if needed
+                    Get <Link href="<insert url>" target="_blank"> exercise hints</Link> if needed
                   </Typography>
                 </li>
               </Stack>

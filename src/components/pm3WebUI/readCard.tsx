@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 
-import { Box, Grid2, Stack, Button, InputLabel, Typography, MenuItem, Select, SelectChangeEvent, OutlinedInput, FormControl  } from '@mui/material';
+import { Alert, Box, Grid2, Stack, Button, InputLabel, Typography, 
+  MenuItem, Select, SelectChangeEvent, OutlinedInput, FormControl  } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 
 import buttontheme from '../../themes/buttontheme'
@@ -31,6 +32,10 @@ const sectors = [
 function ReadCard(): React.JSX.Element {
     const [status, setStatus] = useState<string>("success");
     const [blk, setBlk] = useState<string>("");
+    const [alert, setAlert] = useState({
+            severity: "success",
+            message: "Read Success",
+        });
 
     const handleInputChangeBlkNo = (event: SelectChangeEvent<typeof blk>) => {
           setBlk(event.target.value);

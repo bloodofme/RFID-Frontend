@@ -36,7 +36,7 @@ function Authenticate(): React.JSX.Element {
       
             if (response.ok) {
                 const data = await response.json();
-                setStatus("success");
+                setStatus(data.status);
                 if (status === "success") {
                     setName(data.message.name);
                     setRole(data.message.role);
