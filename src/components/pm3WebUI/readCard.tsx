@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import { Box, Grid2, Stack, Button, TextField, Typography } from '@mui/material';
+import { Box, Grid2, Stack, Button, InputLabel, Typography, MenuItem, Select, SelectChangeEvent, OutlinedInput, FormControl  } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 
 import buttontheme from '../../themes/buttontheme'
@@ -9,12 +9,31 @@ import themes from '../../themes/themes'
 import DisplayCardData from './displayCardData';
 import dataDummy from '../../resources/dummyCard.json';
 
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+const sectors = [
+    '0', '1', '2', '3', 
+    '4', '5', '6', '7', 
+    '8','9', '10', '11',
+    '12', '13', '14', '15',
+  ];
+  
+
 function ReadCard(): React.JSX.Element {
     const [status, setStatus] = useState<string>("success");
-    const [blk, setBlk] = useState<string>("4");
+    const [blk, setBlk] = useState<string>("");
 
-    const handleInputChangeBlkNo = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setBlk(event.target.value);
+    const handleInputChangeBlkNo = (event: SelectChangeEvent<typeof blk>) => {
+          setBlk(event.target.value);
     };
     
     const handleButtonClickRead = async() => {
@@ -61,19 +80,31 @@ function ReadCard(): React.JSX.Element {
                     width: '100%',
                 }}
                 >
-                <TextField
-                    label="Block Number [0-15]"
-                    variant="outlined"
-                    value={blk}
-                    onChange={handleInputChangeBlkNo}
-                />
-                <ThemeProvider theme={buttontheme} >
-                    <Button variant="contained" onClick={handleButtonClickRead}>
-                        <ThemeProvider theme={themes}>
-                            <Typography variant='h2'>Read Card</Typography>
-                        </ThemeProvider>
-                    </Button>
-                </ThemeProvider>
+                    <FormControl sx={{ m: 1, width: 100 }}>
+                        <InputLabel>Sector</InputLabel>
+                        <Select
+                            value={blk}
+                            onChange={handleInputChangeBlkNo}
+                            input={<OutlinedInput label="Name" />}
+                            MenuProps={MenuProps}
+                        >
+                            {sectors.map((sector) => (
+                                <MenuItem
+                                key={sector}
+                                value={sector}
+                                >
+                                {sector}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                    <ThemeProvider theme={buttontheme} >
+                        <Button variant="contained" onClick={handleButtonClickRead}>
+                            <ThemeProvider theme={themes}>
+                                <Typography variant='h2'>Read Card</Typography>
+                            </ThemeProvider>
+                        </Button>
+                    </ThemeProvider>
                 </Box>
                 <DisplayCardData blocks={dataDummy.blocks} />
             </Stack>

@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { Tabs, Tab } from '@mui/material';
 
 import GifPage from './components/membersPortal/gifPage';
-import Instructions from './components/instructions';
+import Instructions from './components/information/instructions';
 import MembersPortal from './components/membersPortal/membersPortal';
 import WebUI from './components/pm3WebUI/webUI';
 import Authenticate from './components/authenticateCard/cardAuthenticate';
